@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+
+
+        <script>
+            //getting pass word and putting in local storage
+            let id = localStorage.getItem('user');
+            
+            if (id === null) {
+                console.log("creating new id");
+                id= newID();
+                localStorage.setItem('user', id);
+                console.log("new id is " + id);
+                function newID () {
+                    id = '_' + Math.random().toString(36).substr(2, 9);
+                    return id;
+                };
+            } else {
+                console.log("id in local storage. It is " + id);
+            }
+
+            //getting url
+            let url = window.location.href;
+            console.log(url);
+
+            //getting browser
+            let browser = navigator.appVersion;
+            console.log(browser);
+
+            //getting screen size
+            let height = window.screen.height * window.devicePixelRatio;
+            let width = window.screen.width * window.devicePixelRatio;
+            let screenSize = height * width;
+            console.log("screen height: " + height + " screen width: " + width + " Screen size: " + screenSize + " pixels");
+
+
+            //getting battery percentage
+            let batteryLevel = null;
+            navigator.getBattery().then(function (battery) {
+                batteryLevel = battery.level * 100;
+            });
+
+            setTimeout(function () {
+                console.log(batteryLevel);
+            }, 5000);
+
+        </script>
+    </body>
+
+</html>
