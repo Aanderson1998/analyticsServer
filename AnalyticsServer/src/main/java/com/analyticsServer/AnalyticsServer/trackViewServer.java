@@ -1,10 +1,11 @@
 package com.analyticsServer.AnalyticsServer;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,17 +28,25 @@ public class trackViewServer {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String time = dateFormat.format(new Date());
 
-		// getting IP address
+		// getting ip address
+		String ipAddress;
+		try {
+
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+
+		} catch (UnknownHostException e) {
+			ipAddress = null;
+		}
 
 		// adding user information to record and adding it to in memory data structure
 		List<String> record = new ArrayList<String>();
-		record.add("ip address"); //index 0
+		record.add(ipAddress); // index 0
 		record.add(time); // index 1
-		record.add(id);  // index 2
+		record.add(id); // index 2
 		record.add(browser); // index 3
-		record.add(screenSize); //index 4
-		record.add(url); //index 5
-		
+		record.add(screenSize); // index 4
+		record.add(url); // index 5
+
 		table.add(record);
 
 		// creating JSON object to put data and return to user (to show request was
@@ -45,7 +54,7 @@ public class trackViewServer {
 		org.json.JSONObject result = new org.json.JSONObject();
 
 		result.put("status", "in memory");
-		result.put("ip address", "working on it");
+		result.put("ip address", ipAddress);
 		result.put("timestamp", time);
 		result.put("id", id);
 		result.put("browser", browser);

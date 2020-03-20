@@ -1,11 +1,9 @@
 package com.analyticsServer.AnalyticsServer;
 
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -19,25 +17,26 @@ public class viewServer {
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
 	public String getStatParams(@RequestParam(value = "startDate", defaultValue = "") String startDate,
-			@RequestParam(value = "endDate", defaultValue = "") String endDate)throws ParseException {
-		
-		//creating new table with only rows that are between start and end date
+			@RequestParam(value = "endDate", defaultValue = "") String endDate) throws ParseException {
+
+		// creating new table with only rows that are between start and end date
 		List<List<String>> filteredTable = new ArrayList<List<String>>();
-		//changing the strings of the dates to time stamps
+		// changing the strings of the dates to time stamps
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Timestamp convertedStart = new Timestamp(((java.util.Date) df.parse(startDate)).getTime());
 		Timestamp convertedEnd = new Timestamp(((java.util.Date) df.parse(endDate)).getTime());
-		//going through table in memory and adding in rows that have times between the start and end time
-		//index of column in table with time
+		// going through table in memory and adding in rows that have times between the
+		// start and end time
+		// index of column in table with time is 1
 		int index = 1;
-		for(int i =0; i < trackViewServer.table.size(); i++) {
+		for (int i = 0; i < trackViewServer.table.size(); i++) {
 			String time = trackViewServer.table.get(i).get(index);
 			Timestamp convertedTime = new Timestamp(((java.util.Date) df.parse(time)).getTime());
 			if (convertedTime.before(convertedEnd) && convertedTime.after(convertedStart)) {
-				filteredTable.add(trackViewServer.table.get(i));	
+				filteredTable.add(trackViewServer.table.get(i));
 			}
 		}
-		
+
 		// getting value for unique to use page
 		int numUsers = getData.getNumUsers(filteredTable);
 		// getting value for top 3 browsers
@@ -56,7 +55,7 @@ public class viewServer {
 		result.put("Top 3 URLs", topUrls);
 		result.put("Number of request per five minute interval", numRequests);
 
-		//return object
+		// return object
 		return result.toString();
 	}
 
