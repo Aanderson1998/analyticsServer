@@ -25,7 +25,7 @@ public class viewServer {
 		//creating new table with only rows that are between start and end date
 		List<List<String>> filteredTable = new ArrayList<List<String>>();
 		//changing the strings of the dates to time stamps
-		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Timestamp convertedStartDate = new Timestamp(((java.util.Date) df.parse(startDate)).getTime());
 		Timestamp convertedEndDate = new Timestamp(((java.util.Date) df.parse(endDate)).getTime());
 		//going through table in memory and adding in rows that have times between the start and end time
