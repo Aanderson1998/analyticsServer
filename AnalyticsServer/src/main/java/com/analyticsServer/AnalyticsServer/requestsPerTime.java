@@ -41,18 +41,22 @@ public class requestsPerTime {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String ts = table.get(0).get(index);
 		Timestamp startTime = new Timestamp(((java.util.Date) df.parse(ts)).getTime());
-
+		int num=0;
+		Timestamp endTime = new Timestamp(startTime.getTime() + (1000 * 60 * 5));
+		
 		for (int i = 0; i < table.size(); i++) {
-			Timestamp endTime = new Timestamp(startTime.getTime() + (1000 * 60 * 5));
 			String time = table.get(i).get(index);
 			Timestamp ConvertedTime = new Timestamp(((java.util.Date) df.parse(time)).getTime());
-			int num = 0;
 			if (ConvertedTime.before(endTime)) {
 				num++;
-			}
+			}else {
 			requestPerTime.add(new requestsPerTime(startTime, num));
 			startTime = endTime;
+			endTime = new Timestamp(startTime.getTime() + (1000 * 60 * 5));
+			num=0;
 		}
+		}
+		requestPerTime.add(new requestsPerTime(startTime, num));
 		return requestPerTime;
 	}
 }
