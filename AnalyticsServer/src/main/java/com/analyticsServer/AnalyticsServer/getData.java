@@ -1,35 +1,48 @@
 package com.analyticsServer.AnalyticsServer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class getData {
 	
+	
+	
 	public static List<String> getTopUrls(List<List<String>> table) {
-		int index = 1; // column index in table for url
+		int index = 5; // column index in table for URLs
 		HashMap<String, Integer> map = new HashMap<>();
 		int i = 0;
-		while (i <= table.size()) {
-			String url = table.get(i).get(index);
-			if (map.containsKey(url) == false) {
-				map.put(url, 0);
+		while (i < table.size()) {
+			String URL = table.get(i).get(index);
+			if (map.containsKey(URL) == false) {
+				map.put(URL, 0);
 			}
-			map.put(url, map.get(url) + 1);
+			map.put(URL, map.get(URL) + 1);
 			i++;
 		}
-		List<Integer> topUrls = new ArrayList<Integer>(map.values());
-		// get max three from map and put in list and return
-		return null;
+		List<String> keys = new ArrayList<String>(map.keySet()); 
+		List<Integer> values = new ArrayList<Integer>(map.values());
+		List<String> topURLs = new ArrayList<String>();
+		for (int j = 0; j < map.size() ; j++) {
+			int maxVal = Collections.max(values); 
+			int maxId = values.indexOf(maxVal);
+			topURLs.add(keys.get(maxId));
+			keys.set(maxId, null);
+			values.set(maxId,-1);
+		}
+		topURLs=topURLs.stream().limit(3).collect(Collectors.toList());
+		return topURLs;
 	}
-
+	
+	
+	
 	public static List<String> getTopBrowsers(List<List<String>> table) {
-		int index = 2; // column index in table for browser
+		int index = 3; // column index in table for browser
 		HashMap<String, Integer> map = new HashMap<>();
 		int i = 0;
-		while (i <= table.size()) {
+		while (i < table.size()) {
 			String browser = table.get(i).get(index);
 			if (map.containsKey(browser) == false) {
 				map.put(browser, 0);
@@ -37,21 +50,27 @@ public class getData {
 			map.put(browser, map.get(browser) + 1);
 			i++;
 		}
-		Set<Entry<String, Integer>> entrySet = map.entrySet();
-		ArrayList<Entry<String, Integer>> listOfEntry = new ArrayList<Entry<String, Integer>>(entrySet);
-		for (int j = 0; j <= 3; j++) {
-			// String browser = Collections.max(listOfEntry.get(i).getValue());
+		List<String> keys = new ArrayList<String>(map.keySet()); 
+		List<Integer> values = new ArrayList<Integer>(map.values());
+		List<String> topBrowsers = new ArrayList<String>();
+		for (int j = 0; j < map.size() ; j++) {
+			int maxVal = Collections.max(values); 
+			int maxId = values.indexOf(maxVal);
+			topBrowsers.add(keys.get(maxId));
+			keys.set(maxId, null);
+			values.set(maxId,-1);
 		}
-		// get max three from map and put in list and return
-		return null;
+		topBrowsers=topBrowsers.stream().limit(3).collect(Collectors.toList());
+		return topBrowsers;
 	}
-
+	
+	
 	
 	public static int getNumUsers(List<List<String>> table) {
-		int index = 0; // column index in table for unique id
+		int index = 2; // column index in table for unique id
 		int i = 0;
 		List<String> uniqueUsers = new ArrayList<String>();
-		while (i <= table.size()) {
+		while (i < table.size()) {
 			String user = table.get(i).get(index);
 			if (uniqueUsers.contains(user) == false) {
 				uniqueUsers.add(user);
@@ -60,5 +79,6 @@ public class getData {
 		}
 		return uniqueUsers.size();
 	}
+	
 
 }

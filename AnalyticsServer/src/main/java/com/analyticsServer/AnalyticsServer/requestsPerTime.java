@@ -36,13 +36,13 @@ public class requestsPerTime {
 	
 	
 	public static List<requestsPerTime> getNumRequests(List<List<String>> table) throws ParseException {
-		int index = 4;
+		int index = 1;
 		List<requestsPerTime> requestPerTime = new ArrayList<>();
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		String ts = table.get(0).get(index);
 		Timestamp startTime = new Timestamp(((java.util.Date) df.parse(ts)).getTime());
 
-		for (int i = 0; i <= table.size(); i++) {
+		for (int i = 0; i < table.size(); i++) {
 			Timestamp endTime = new Timestamp(startTime.getTime() + (1000 * 60 * 5));
 			String time = table.get(i).get(index);
 			Timestamp ConvertedTime = new Timestamp(((java.util.Date) df.parse(time)).getTime());

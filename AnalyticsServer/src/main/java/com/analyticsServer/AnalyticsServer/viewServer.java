@@ -30,8 +30,8 @@ public class viewServer {
 		Timestamp convertedEndDate = new Timestamp(((java.util.Date) df.parse(endDate)).getTime());
 		//going through table in memory and adding in rows that have times between the start and end time
 		//index of column in table with time
-		int index = 4;
-		for(int i =0; i <= trackViewServer.table.size(); i++) {
+		int index = 1;
+		for(int i =0; i < trackViewServer.table.size(); i++) {
 			String time = trackViewServer.table.get(i).get(index);
 			Timestamp convertedTime = new Timestamp(((java.util.Date) df.parse(time)).getTime());
 			if (convertedTime.before(convertedEndDate) && convertedTime.after(convertedStartDate)) {

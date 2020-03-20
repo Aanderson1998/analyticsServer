@@ -31,12 +31,13 @@ public class trackViewServer {
 
 		// adding user information to record and adding it to in memory data structure
 		List<String> record = new ArrayList<String>();
-		record.add(id); //index 0
-		record.add(url); //index 1
-		record.add(browser); //index 2
-		record.add(screenSize); //index 3
-		record.add(time); //index 4
-		// IP address // index 5
+		record.add("ip address"); //index 0
+		record.add(time); // index 1
+		record.add(id);  // index 2
+		record.add(browser); // index 3
+		record.add(screenSize); //index 4
+		record.add(url); //index 5
+		
 		table.add(record);
 
 		// creating JSON object to put data and return to user (to show request was
@@ -44,12 +45,12 @@ public class trackViewServer {
 		org.json.JSONObject result = new org.json.JSONObject();
 
 		result.put("status", "in memory");
+		result.put("ip address", "working on it");
+		result.put("timestamp", time);
 		result.put("id", id);
-		result.put("url", url);
 		result.put("browser", browser);
 		result.put("screenSize", screenSize);
-		result.put("ip address", "we getting it");
-		result.put("timestamp", time);
+		result.put("url", url);
 
 		// returning results
 		return result;
