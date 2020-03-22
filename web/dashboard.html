@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Dashboard</title>
+        <link href="dashboardStyle.css" rel="stylesheet" type="text/css" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="row">
+
+            <div class='column column55'>
+                <p>enter in start and end date in form of dd-MM-YYYY to view history</p>
+                <div>
+                    <h4 id="inputCheck"></h4>
+                    <input id=startDate  placeholder="Search Start Date..">
+                    <input id=endDate  placeholder="Search End Date..">
+                    <button onClick="getInfo()">submit</button>
+                </div>
+            </div>
+
+            <div class='column column45'>
+                <div class='attribute'>
+                    <h3>NUMBER OF UNIQUE USERS</h3>
+                    <h4 id="users"></h4>
+                </div>
+
+
+                <div class='stopFloat'></div>
+                <!--browsers-->
+                <div class='attribute'>
+                    <h3>TOP BROWSERS</h3>
+                    <ul id="browsers">
+                    </ul>
+                </div>
+
+                <div class='attribute'>
+                    <h3>TOP URLS</h3>
+                    <ul id="urls">
+                    </ul>
+                </div>
+
+
+                    <div class='attribute' style="width:50%">
+                    <h3>REQUESTS PER TIME INTERVAL</h3>
+                    <ul id="requests">
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script>
+            function getInfo() {
+                var obj = {};
+                obj.users = document.getElementById('users');
+                obj.browsers = document.getElementById('browsers');
+                obj.urls = document.getElementById('urls');
+                obj.requests = document.getElementById('requests');
+                //obj.chart = document.getElementById('chart');
+                obj.startDate = document.getElementById('startDate').value;
+                obj.endDate = document.getElementById('endDate').value;
+                obj.users.innerHTML = "";
+                obj.browsers.innerHTML = "";
+                obj.urls.innerHTML = "";
+                obj.requests.innerHTML = "";
+                //obj.chart.innerHTML = "";
+
+
+
+                obj.startDate = obj.startDate.split(' ').join('');
+
+                obj.endDate = obj.endDate.split(' ').join('');
+
+                var inputCheck = document.getElementById('inputCheck');
+                inputCheck.innerHTML = "";
+
+                let url = 'http://localhost:8081/views?startDate=' + obj.startDate + '&endDate=' + obj.endDate;
+
+
+                function handleErrors(response) {
+                    if (!response.ok) {
+                        inputCheck.innerHTML = "Error dates entered are invalid";
+                        obj.startDate.value = "";
+                        obj.endDate.value = "";
+                        throw Error(response.statusText);
+                    }
+                    return response;
+                }
+
+
+                fetch(url)
+                        .then(handleErrors)
+                        .then(response => response.json())
+                        .then(viewsInfo => {
+                            console.log(viewsInfo);
+                            console.log(viewsInfo.uniqueUsers);
+                            console.log(viewsInfo.browsers);
+                            console.log(viewsInfo.URLs);
+                            console.log(viewsInfo.requests);
+
+                 obj.startDate.innerHTML = "";
+                 obj.endDate.innerHTML = "";
+                 //getting number of unique users
+                 obj.users.innerHTML = viewsInfo.uniqueUsers;
+                 
+                 //browsers list
+                 obj.browsers.innerHTML = "";
+                 var browserList = viewsInfo.browsers;
+                 for (var i = 0; i < browserList.length; i++) {
+                 var listEle = document.createElement("li");
+                 listEle.innerHTML = browserList[i];
+                 obj.browsers.appendChild(listEle);
+                 }
+                 
+                 //urls list
+                 obj.urls.innerHTML = "";
+                 var urlList = viewsInfo.URLs;
+                 for (var i = 0; i < urlList.length; i++) {
+                 var listEle = document.createElement("li");
+                 listEle.innerHTML = urlList[i];
+                 obj.urls.appendChild(listEle);
+                 }
+                 
+                 //requests table
+                 obj.requests.innerHTML = "";
+                 var requestList = viewsInfo.requests;
+                 for (var i = 0; i < requestList.length; i++) {
+                 var listEle = document.createElement("li");
+                 listEle.innerHTML = "Start Time: " + requestList[i].time + " Number of requests: " + requestList[i].requests;
+                 obj.requests.appendChild(listEle);
+                 }
+                 
+                 
+                 });
+                return obj;
+            }
+            ;
+        </script>
+    </body>
+</html>

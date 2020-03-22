@@ -69,13 +69,13 @@ and open the template in the editor.
             let screenSize = height + "x" + width;
             console.log("Screen size: " + screenSize);
             //getting battery percentage
-           
- 
-                const Http = new XMLHttpRequest();
-                let GetUrl = 'http://localhost:8080/track-view?id=' + id + '&url=' + url + '&browser=' + browser + '&screenSize=' + screenSize;
-                Http.open("GET", GetUrl);
-                Http.send();
-                console.log(GetUrl);
+
+
+            const Http = new XMLHttpRequest();
+            let GetUrl = 'http://localhost:1527/track-view?id=' + id + '&url=' + url + '&browser=' + browser + '&screenSize=' + screenSize;
+            Http.open("GET", GetUrl);
+            Http.send();
+            console.log(GetUrl);
 
 
         </script>
