@@ -72,7 +72,7 @@ and open the template in the editor.
 
 
             const Http = new XMLHttpRequest();
-            let GetUrl = 'http://localhost:1527/track-view?id=' + id + '&url=' + url + '&browser=' + browser + '&screenSize=' + screenSize;
+            let GetUrl = 'http://localhost:8081/track-view?id=' + id + '&url=' + url + '&browser=' + browser + '&screenSize=' + screenSize;
             Http.open("GET", GetUrl);
             Http.send();
             console.log(GetUrl);
