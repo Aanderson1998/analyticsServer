@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +19,13 @@ public class trackViewServer {
 	// in memory data structure to hold values every time user enters web site
 	public static List<List<String>> table = new ArrayList<List<String>>();
 
+
 	@RequestMapping(value = "/track-view", method = RequestMethod.GET)
-	public String getParam(@RequestParam(value = "id", defaultValue = "") String id,
+	public List<String> getParam(@RequestParam(value = "id", defaultValue = "") String id,
 			@RequestParam(value = "url", defaultValue = "") String url,
 			@RequestParam(value = "browser", defaultValue = "") String browser,
 			@RequestParam(value = "screenSize", defaultValue = "") String screenSize) {
+		
 
 		// getting time stamp
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -49,20 +52,10 @@ public class trackViewServer {
 
 		table.add(record);
 
-		// creating JSON object to put data and return to user (to show request was
-		// sent)
-		org.json.JSONObject result = new org.json.JSONObject();
 
-		result.put("status", "in memory");
-		result.put("ip address", ipAddress);
-		result.put("timestamp", time);
-		result.put("id", id);
-		result.put("browser", browser);
-		result.put("screenSize", screenSize);
-		result.put("url", url);
 
 		// returning results
-		return result.toString();
+		return record;
 
 	}
 

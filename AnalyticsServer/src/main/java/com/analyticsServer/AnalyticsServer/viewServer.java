@@ -15,16 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class viewServer {
 
+
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
 	public String getStatParams(@RequestParam(value = "startDate", defaultValue = "") String startDate,
 			@RequestParam(value = "endDate", defaultValue = "") String endDate) throws ParseException {
-
+		String newStartDate= startDate + " 00:00:00";
+		String newEndDate= endDate + " 00:00:00";
 		// creating new table with only rows that are between start and end date
 		List<List<String>> filteredTable = new ArrayList<List<String>>();
 		// changing the strings of the dates to time stamps
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Timestamp convertedStart = new Timestamp(((java.util.Date) df.parse(startDate)).getTime());
-		Timestamp convertedEnd = new Timestamp(((java.util.Date) df.parse(endDate)).getTime());
+		Timestamp convertedStart = new Timestamp(((java.util.Date) df.parse(newStartDate)).getTime());
+		Timestamp convertedEnd = new Timestamp(((java.util.Date) df.parse(newEndDate)).getTime());
 		// going through table in memory and adding in rows that have times between the
 		// start and end time
 		// index of column in table with time is 1
@@ -50,10 +52,10 @@ public class viewServer {
 		JSONObject result = new JSONObject();
 
 		// adding information to JSON object
-		result.put("Number of unique users", numUsers);
-		result.put("Top 3 browsers", topBrowsers);
-		result.put("Top 3 URLs", topUrls);
-		result.put("Number of request per five minute interval", numRequests);
+		result.put("uniqueUsers", numUsers);
+		result.put("browsers", topBrowsers);
+		result.put("URLs", topUrls);
+		result.put("requests", numRequests);
 
 		// return object
 		return result.toString();
