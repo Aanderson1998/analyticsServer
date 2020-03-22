@@ -87,9 +87,6 @@ and open the template in the editor.
                 function handleErrors(response) {
                     if (!response.ok) {
                         inputCheck.innerHTML = "Error dates entered are invalid";
-                        obj.startDate.value = "";
-                        obj.endDate.value = "";
-                        throw Error(response.statusText);
                     }
                     return response;
                 }
@@ -104,9 +101,6 @@ and open the template in the editor.
                             console.log(viewsInfo.browsers);
                             console.log(viewsInfo.URLs);
                             console.log(viewsInfo.requests);
-
-                 obj.startDate.innerHTML = "";
-                 obj.endDate.innerHTML = "";
                  //getting number of unique users
                  obj.users.innerHTML = viewsInfo.uniqueUsers;
                  
@@ -128,7 +122,7 @@ and open the template in the editor.
                  obj.urls.appendChild(listEle);
                  }
                  
-                 //requests table
+                 //requests list
                  obj.requests.innerHTML = "";
                  var requestList = viewsInfo.requests;
                  for (var i = 0; i < requestList.length; i++) {
