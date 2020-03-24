@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Dashboard</title>
+        <link href="dashboardStyle.css" rel="stylesheet" type="text/css" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    </head>
+    <body>
+
+        <div class="row">
+            <div class='column column35'>
+                <h1>Enter In Start and End Date In Form of DD-MM-YYYY To View History</h1>
+                <!--search bars-->
+                <div>
+                    <h4 id="inputCheck"></h4>
+                    <input id=startDate  placeholder="Search Start Date..">
+                    <input id=endDate  placeholder="Search End Date..">
+                    <button onClick="getInfo()">submit</button>
+                </div> 
+                <!--unique users-->
+                <div class='attribute'>
+                    <h3>NUMBER OF UNIQUE USERS</h3>
+                    <h4 id="users"></h4>
+                </div>     
+                <!--browsers-->
+                <div>
+                    <h3>TOP BROWSERS</h3>
+                    <ol id="browsers">
+                    </ol>
+                </div> 
+                <!--urls-->
+                <div>
+                    <h3>TOP URLS</h3>
+                    <ol id="urls">
+                    </ol>
+                </div>
+                <!--requests-->
+                <div>
+                    <h3>REQUESTS PER TIME INTERVAL</h3>
+                    <ul id="requests">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--chart-->
+        <div class="row">
+            <div class='column column65'> 
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <script src="dashboard.js"></script>
+    </body>
+</html>
