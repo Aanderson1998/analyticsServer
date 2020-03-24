@@ -15,7 +15,7 @@ and open the template in the editor.
 
 
         <script>
-            //getting pass word and putting in local storage
+            //getting id either from local storage or creating new one and putting in local storage (if none to begin with)
             let id = localStorage.getItem('user');
             if (id === null) {
                 console.log("creating new id");
@@ -71,7 +71,7 @@ and open the template in the editor.
             console.log("Screen size: " + screenSize);
 
 
-
+            //creating and executing get request
             if (window.XMLHttpRequest) {
                 http = new XMLHttpRequest();
             } else {
@@ -84,6 +84,7 @@ and open the template in the editor.
                             console.log(response);
                 }
             };
+            //adding info to url for get request
             let GetUrl = 'http://localhost:8081/track-view?id=' + id + '&url=' + url + '&browser=' + browser + '&screenSize=' + screenSize;
             http.open("GET", GetUrl, true);
             http.send();
