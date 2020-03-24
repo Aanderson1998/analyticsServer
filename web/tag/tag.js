@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>DEMO HTML PAGE</div>
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+//script tag that can be added to any html page to track users
 
-
-        <script>
-            //getting id either from local storage or creating new one and putting in local storage (if none to begin with)
+//getting id either from local storage or creating new one and putting in local storage (if none to begin with)
             let id = localStorage.getItem('user');
             if (id === null) {
                 console.log("creating new id");
@@ -91,7 +81,3 @@ and open the template in the editor.
             console.log(GetUrl);
 
 
-        </script>
-    </body>
-
-</html>
