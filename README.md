@@ -1,6 +1,6 @@
 # analyticsServer
 
-##how to use
+## How To Use
 When downloading, the AnalyticServer folder has all material used to create restful spring server, which I built in eclipse
 All other files and folders belong to the web pages I created, which I created in NetBeans
 In the web folder you can two other folders, tag and dashboard
