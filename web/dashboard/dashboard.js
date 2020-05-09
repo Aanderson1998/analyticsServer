@@ -31,6 +31,7 @@ function getInfo() {
     let url = 'http://localhost:8081/views?startDate=' + obj.startDate + '&endDate=' + obj.endDate;
 
     //function to handle errors
+    // Nice! Although you may noy want to return the response
     function handleErrors(response) {
         if (!response.ok) {
             inputCheck.innerHTML = "Error dates entered are invalid";

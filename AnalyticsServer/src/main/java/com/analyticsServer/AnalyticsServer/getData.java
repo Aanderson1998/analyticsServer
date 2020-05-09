@@ -13,6 +13,7 @@ public class getData {
 	public static List<String> getTopUrls(List<List<String>> table) {
 		int index = 5; // column index in table for URLs
 		// creating hash map to hold URL and number of request with that URL
+		// I like the HashMap approach!
 		HashMap<String, Integer> map = new HashMap<>();
 		// while loop iterating through in memory table and adding to hash map for each
 		// URL
@@ -44,6 +45,7 @@ public class getData {
 			values.set(maxId, -1);
 		}
 		// taking top three values from list and returning them
+		// Using streams. I like it! :)
 		topURLs = topURLs.stream().limit(3).collect(Collectors.toList());
 		return topURLs;
 	}
@@ -51,6 +53,7 @@ public class getData {
 	
 	
 	// function to get top 3 browsers
+	// I wonder if this method and the getTopURLs could share some code.
 	public static List<String> getTopBrowsers(List<List<String>> table) {
 		int index = 3; // column index in table for browser
 		// hash map to hold browser and number of times it appears in table
@@ -85,12 +88,13 @@ public class getData {
 
 	
 	
-	
+
 	// function to get number of unique users
 	public static int getNumUsers(List<List<String>> table) {
 		int index = 2; // column index in table for unique id
 		int i = 0;
 		// list that will hold unique users
+		// A HashSet might be a good data structure here.
 		List<String> uniqueUsers = new ArrayList<String>();
 		// while loop to go through table and add unique users to list
 		while (i < table.size()) {

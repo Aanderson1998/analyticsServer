@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //cross origin to localhost:8080 so my other web pages can get data from this server
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class trackViewServer {
 
 	// in memory data structure to hold values from track-view get requests (every
 	// time user enters web site with script tag)
+	// I'd recommend a list of objects here where each object is a tracked event. That'll make the code for accessing this
+	// data and manipulating it easier.
 	public static List<List<String>> table = new ArrayList<List<String>>();
 
 	@RequestMapping(value = "/track-view", method = RequestMethod.GET)
@@ -33,6 +35,7 @@ public class trackViewServer {
 		String time = dateFormat.format(new Date());
 
 		// getting ip address
+		// Right general approach. This will actually get you the IP of the server though
 		String ipAddress;
 		try {
 

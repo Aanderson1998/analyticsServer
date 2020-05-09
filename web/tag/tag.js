@@ -14,6 +14,8 @@
                 console.log("new id is " + id);
                 //function to create new id    
                 function newID() {
+                    // Nice ID format. I might recommend setting id on the outside and just returning
+                    // the generated value (you set the outside-scoped id here)
                     id = '_' + Math.random().toString(36).substr(2, 9);
                     return id;
                 }
@@ -34,7 +36,8 @@
             } else if (temp.indexOf("SamsungBrowser") > -1) {
                 browser = "Samsung";
                 //checking for Opera
-            } else if (temp.indexOf("Opera") > -1 || sUsrAg.indexOf("OPR") > -1) {
+                // Small browser compat issue here. sUsrAg doesn't exist. Worked in Firefox
+            } else if (temp.indexOf("Opera") > -1 || temp.indexOf("OPR") > -1) {
                 browser = "Opera";
                //checking for trident
             } else if (temp.indexOf("Trident") > -1) {
@@ -62,6 +65,7 @@
 
 
             //creating and executing get request
+            // fetch might be a bit easier here.
             if (window.XMLHttpRequest) {
                 http = new XMLHttpRequest();
             } else {

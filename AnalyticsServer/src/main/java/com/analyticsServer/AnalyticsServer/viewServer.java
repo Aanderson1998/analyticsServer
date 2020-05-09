@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //cross origin to localhost:8080 so my other web pages can fetch data from this server
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class viewServer {
 
 	@RequestMapping(value = "/views", method = RequestMethod.GET)
@@ -33,8 +33,8 @@ public class viewServer {
 
 		// changing the strings of the entered dates to time stamps
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		Timestamp convertedStart = new Timestamp(((java.util.Date) df.parse(newStartDate)).getTime());
-		Timestamp convertedEnd = new Timestamp(((java.util.Date) df.parse(newEndDate)).getTime());
+		Timestamp convertedStart = new Timestamp(df.parse(newStartDate).getTime());
+		Timestamp convertedEnd = new Timestamp(df.parse(newEndDate).getTime());
 
 		// index of column in table in memory with time variable is 1
 		int index = 1;
@@ -44,6 +44,8 @@ public class viewServer {
 		for (int i = 0; i < trackViewServer.table.size(); i++) {
 			String time = trackViewServer.table.get(i).get(index);
 			Timestamp convertedTime = new Timestamp(((java.util.Date) df.parse(time)).getTime());
+			// I think I might personally include the start and end if there's no time component. If I want to see today's request,
+			// I'd just want the one date right?
 			if (convertedTime.before(convertedEnd) && convertedTime.after(convertedStart)) {
 				filteredTable.add(trackViewServer.table.get(i));
 			}
@@ -62,6 +64,8 @@ public class viewServer {
 		List<requestsPerTime> numRequests = requestsPerTime.getNumRequests(filteredTable);
 
 		// storing information in JSON object to return it to user
+		// This approach of manually building the JSON object works but in Spring, you can get away with directly returning
+		// an object
 		JSONObject result = new JSONObject();
 
 		// adding information to JSON object
